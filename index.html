@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>練習用塾サイト</title>
+    <meta name="description" content="塾サイトを模した練習用"> 
+    <link rel="stylesheet" href="index.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div class="top-wrapper">
+      <h1>Todoリスト</h1>
+      <input type="text" class="ireru">
+      <button class="btn">追加</button>
+    </div>
+    <div class="list-wrapper">
+      <ul class="list">
+
+      </ul>
+    </div>
+  <script>
+    $(function(){
+      var $input=$('.ireru');
+      var $list=$('.list');
+
+      $('.btn').on('click',function(){
+        event.preventDefault();
+         var $todolist=$input.val();
+        $list.append('<li id="listed">'+'<input type="checkbox" id=checkedList name="finish">'+$todolist+'</li>');
+        $input.val("");
+      });
+
+      $list.on('click',':checkbox',function(){
+        var $finished=$(this).closest('li').toggleClass('complete');
+        if($finished.hasClass('complete')){
+          $(this).closest('li').css('text-decoration','line-through');
+          $(this).closest('li').append('<button id="deleteTask">削除</button>');
+        }else{
+          $(this).closest('li').css('text-decoration','none');
+          $('#deleteTask').hide();
+        }
+      });
+
+      $list.on('click','#deleteTask',function(){
+        $(this).closest('li').remove();
+      });
+      
+    });
+  </script>  
+  </body>
+
+</html>
