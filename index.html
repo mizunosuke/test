@@ -26,22 +26,31 @@
     $(function(){
       var $input=$('.ireru');
       var $list=$('.list');
+      
+      var $todolist = [];
 
       $('.btn').on('click',function(){
         event.preventDefault();
-         var $todolist=$input.val();
+        
+        $todolist.push($input.val());
+        
         $list.append('<li id="listed">'+'<input type="checkbox" id=checkedList name="finish">'+$todolist+'</li>');
         $input.val("");
+
+        console.log($todolist);
       });
 
       $list.on('click',':checkbox',function(){
         var $finished=$(this).closest('li').toggleClass('complete');
+        
+        console.log($finished);
+        
         if($finished.hasClass('complete')){
           $(this).closest('li').css('text-decoration','line-through');
-          $(this).closest('li').append('<button id="deleteTask">削除</button>');
+          $(this).closest('li').append('<button class="deleteTask">削除</button>');
         }else{
           $(this).closest('li').css('text-decoration','none');
-          $('#deleteTask').hide();
+          $('.deleteTask').hide();
         }
       });
 
