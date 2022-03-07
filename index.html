@@ -26,15 +26,15 @@
     $(function(){
       var $input=$('.ireru');
       var $list=$('.list');
-      
       var $todolist = [];
 
       $('.btn').on('click',function(){
         event.preventDefault();
         
         $todolist.push($input.val());
-        
-        $list.append('<li id="listed">'+'<input type="checkbox" id=checkedList name="finish">'+$todolist+'</li>');
+        var i=$todolist.length-1
+
+        $list.append('<li id="listed">'+'<input type="checkbox" id=checkedList name="finish">'+$todolist[i]+'</li>');
         $input.val("");
 
         console.log($todolist);
