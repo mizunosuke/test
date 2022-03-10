@@ -26,38 +26,41 @@
     $(function(){
       var $input=$('.ireru');
       var $list=$('.list');
-      var $todolist = [];
-
+      var todolist = [];
+      
+      
+      //ボタンをクリックするとリストが追加
       $('.btn').on('click',function(){
         event.preventDefault();
         
-        $todolist.push($input.val());
-        var i=$todolist.length-1
+        //入力した内容を配列に追加
+        todolist.push($input.val());
+        //配列の値を順にli要素として表示
+        var i = todolist.length-1;
+        $list.append('<li>'+'<input type="checkbox">'+todolist[i]+'</li>');
 
-        $list.append('<li id="listed">'+'<input type="checkbox" id=checkedList name="finish">'+$todolist[i]+'</li>');
         $input.val("");
 
-        console.log($todolist);
-      });
+        console.log(todolist);
 
+      });
+      
       $list.on('click',':checkbox',function(){
-        var $finished=$(this).closest('li').toggleClass('complete');
-        
-        console.log($finished);
-        
-        if($finished.hasClass('complete')){
-          $(this).closest('li').css('text-decoration','line-through');
-          $(this).closest('li').append('<button class="deleteTask">削除</button>');
+        $(this).parent('li').toggleClass('complete');
+
+        if($(this).parent().hasClass('complete')){
+          $(this).parent().css('text-decoration','line-through');
+          $(this).parent().append('<button id="deleteTask">削除</button>');
         }else{
-          $(this).closest('li').css('text-decoration','none');
-          $('.deleteTask').hide();
+          $(this).parent().css('text-decoration','none');
+          $(this).next('button').remove();
         }
       });
 
+
       $list.on('click','#deleteTask',function(){
-        $(this).closest('li').remove();
+        $(this).parent('li').remove();
       });
-      
     });
   </script>  
   </body>
